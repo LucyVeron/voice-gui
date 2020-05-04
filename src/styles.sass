@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+$purple: #673ab7
+$yellow: #ffd740
+$orange: #ff8100
+$red: #f44336
+
+@mixin respond-small 
+    @media (max-width: 600px)
+        @content
+    
+html
+    overflow: hidden
+    @include respond-small() 
+        overflow: auto
