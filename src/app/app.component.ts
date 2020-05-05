@@ -63,7 +63,6 @@ export class AppComponent implements OnInit {
     const ids = this.voices.map(v => v.id);
     const randomid = ids[Math.floor(Math.random() * ids.length)];
     this.randomVoice = this.voices.find((v: Voice) => v.id === randomid);
-    console.log(this.randomVoice);
   }
 
   public toggleFavorite(row: Voice): void {
@@ -74,5 +73,10 @@ export class AppComponent implements OnInit {
   public removeFavorite(voice: Voice): void {
     voice.favorite = !voice.favorite;
     this.favorites.splice(this.favorites.indexOf(voice), 1);
+  }
+
+  public clearFilter(): void {
+    this.filter = '';
+    this.dataSource.filter = this.filter;
   }
 }

@@ -21,7 +21,7 @@
         </mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Search..." [(ngModel)]="filter" name="search">
         <img *ngIf="!filter" class="search-icon" height=20 src="../assets/search.svg" alt="search">
-        <img (click)="filter=''" *ngIf="filter" class="close-icon" height=11 src="../assets/search-close.svg" alt="search-close">
+        <img (click)="clearFilter()" *ngIf="filter" class="close-icon" height=11 src="../assets/search-close.svg" alt="search-close">
       </mat-form-field>
     </div>
     <div [@intro] class="mat-elevation-z8">
