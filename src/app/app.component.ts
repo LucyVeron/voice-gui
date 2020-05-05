@@ -1,17 +1,32 @@
+import { animate, style, transition, trigger, useAnimation } from '@angular/animations';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { bounceIn } from 'ng-animate';
 import * as VOICES from '../data/voices.json';
 import { Voice } from './interfaces/voices';
 
-/**
- * @title Data table with sorting, pagination, and filtering.
- */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.sass'],
+  animations: [
+    trigger('intro', [
+      transition('* => *',
+        useAnimation(bounceIn))
+    ]),
+    trigger('fade', [
+      transition('void => *', [
+        style({ opacity: 0 }),
+        animate(100)
+      ]),
+      transition('* => void', [
+        style({ opacity: 1 }),
+        animate(100)
+      ])
+    ])
+  ]
 })
 export class AppComponent implements OnInit {
   public displayedColumns: string[] = ['id', 'icon', 'tags', 'actions'];
@@ -33,7 +48,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
   }
 
   public applyFilter(event: Event): void {
@@ -57,9 +71,8 @@ export class AppComponent implements OnInit {
     this.favorites = this.voices.filter((v: Voice) => v.favorite);
   }
 
-  public removeFavorite(voice: Voice) {
+  public removeFavorite(voice: Voice): void {
     voice.favorite = !voice.favorite;
     this.favorites.splice(this.favorites.indexOf(voice), 1);
   }
-
 }

@@ -11,26 +11,42 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PerfectScrollbarConfigInterface, PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { AppComponent } from './app.component';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
+const MATERIAL = [
+  MatFormFieldModule,
+  MatTableModule,
+  MatInputModule,
+  MatPaginatorModule,
+  MatIconModule,
+  MatButtonModule,
+  MatSortModule,
+  MatCardModule,
+  MatChipsModule
+];
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    ...MATERIAL,
     FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatTableModule,
-    MatInputModule,
-    MatPaginatorModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSortModule,
-    MatCardModule,
-    MatChipsModule
+    PerfectScrollbarModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

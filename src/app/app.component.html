@@ -1,6 +1,6 @@
 <div class="voices">
   <div>
-    <div class="random">
+    <div [@intro] class="random mat-elevation-z8">
       <mat-card class="random-voice" *ngIf="randomVoice">
         <mat-card-header>
           <mat-card-title>{{randomVoice.name}}</mat-card-title>
@@ -14,7 +14,7 @@
         <img src="../assets/button-random.svg" alt="random">
       </button>
     </div>
-    <div class="all">
+    <div [@intro] class="all">
       <mat-form-field>
         <mat-label>
           <img height=20 src="../assets/filter.svg" alt="filter">
@@ -24,7 +24,7 @@
         <img (click)="filter=''" *ngIf="filter" class="close-icon" height=11 src="../assets/search-close.svg" alt="search-close">
       </mat-form-field>
     </div>
-    <div class="mat-elevation-z8">
+    <div [@intro] class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
@@ -56,23 +56,29 @@
       <mat-paginator [pageSizeOptions]="[8]"></mat-paginator>
     </div>
   </div>
-  <div class="favorites">
-    <mat-card *ngFor="let fav of favorites;">
-      <mat-card-header>
-        <mat-card-title>{{fav.name}}</mat-card-title>
-        <button mat-icon-button (click)="removeFavorite(fav)">
-          <mat-icon>clear</mat-icon>
-        </button>
-      </mat-card-header>
-      <mat-card-content>
-        <img src="../assets/{{fav.icon}}">
-      </mat-card-content>
-      <mat-card-actions>
-        <mat-chip-list>
-          <mat-chip selected color="accent">{{fav.tags}}</mat-chip>
-        </mat-chip-list>
-      </mat-card-actions>
-    </mat-card>
-    <div class="add-faves" *ngIf="!favorites.length">No favorites yet 😭...</div>
-  </div>
+
+  <perfect-scrollbar [@intro] class="favorites mat-elevation-z8">
+    <div class="card-wrapper">
+      <mat-card [@fade]="favorites.length" *ngFor="let fav of favorites;">
+        <mat-card-header>
+          <mat-card-title>{{fav.name}}</mat-card-title>
+          <button mat-icon-button (click)="removeFavorite(fav)">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </mat-card-header>
+        <mat-card-content>
+          <img src="../assets/{{fav.icon}}">
+        </mat-card-content>
+        <mat-card-actions>
+          <mat-chip-list>
+            <mat-chip selected color="accent">{{fav.tags}}</mat-chip>
+          </mat-chip-list>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div [@fade]="!favorites.length" class="add-faves" *ngIf="!favorites.length">
+      No favorites yet 😭...
+    </div>
+  </perfect-scrollbar>
+
 </div>
